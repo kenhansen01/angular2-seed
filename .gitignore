@@ -29,11 +29,14 @@ typings
 .lock-wscript
 .tsdrc
 .typingsrc
-
+@
 #IDE configuration files
 .idea
 .vscode
+/.vs/**/*.*
 *.iml
+*.nsproj
+*.sln
 
 /tools/**/*.js
 dist
