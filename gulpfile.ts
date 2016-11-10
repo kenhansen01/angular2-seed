@@ -8,7 +8,12 @@ import { loadTasks } from './tools/utils';
 
 loadTasks(Config.SEED_TASKS_DIR);
 loadTasks(Config.PROJECT_TASKS_DIR);
+loadTasks(Config.SP_TASKS_DIR);
 
+// --------------
+// Get html master from site, this resets the master and is good to run after cumulative updates.
+gulp.task('resethtml', (done: any) =>
+  runSequence('sp.get_input', 'rebase.html_master', 'sp.upload_file', done));
 
 // --------------
 // Build dev.
@@ -52,7 +57,8 @@ gulp.task('build.prod', (done: any) =>
               'build.bundles',
               'build.bundles.app',
               'minify.bundles',
-              'build.index.prod',
+              //'build.index.prod',
+              'build.master.prod',
               done));
 
 // --------------

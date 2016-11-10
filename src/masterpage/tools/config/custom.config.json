@@ -1,0 +1,8 @@
+﻿{
+  "title": "Custom Angular2 Master Page",
+  "filename": "custom_angular2_master.html",
+  "gulp_inject_config": {
+    "starttag": "<!--SPM:<SharePoint: AjaxDelta  id=\"DeltaPlaceHolderAdditionalPageHead\" Container=\"false\"  runat=\"server\">-->",
+    "endtag": "<!--SPM:<asp:ContentPlaceHolder id=\"PlaceHolderAdditionalPageHead\" runat=\"server\"/>-->"
+  }
+}
