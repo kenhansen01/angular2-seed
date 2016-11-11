@@ -2,7 +2,7 @@ import { join } from 'path';
 
 import { SharePointConfig } from './sp.config';
 
-import { SeedConfig } from './seed.config';
+// import { SeedConfig } from './seed.config';
 // import { ExtendPackages } from './seed.config.interfaces';
 
 
@@ -14,7 +14,7 @@ export class ProjectConfig extends SharePointConfig {
   PROJECT_TASKS_DIR = join(process.cwd(), this.TOOLS_DIR, 'tasks', 'project');
 
   constructor() {
-    super();    
+    super();
 
     // Add 'NPM' third party libs to be injected/bundled
     this.NPM_DEPENDENCIES = [

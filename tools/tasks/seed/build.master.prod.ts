@@ -63,11 +63,15 @@ function transformPath() {
     arguments[0] = Config.APP_BASE + path.slice(slice_after, path.length).join(sep) + `?${Date.now()}`;
 
     if (path.indexOf('.js') > 0 && Config.BUILD_TYPE === 'prod') {
-      return `<!--SPM:<SharePoint:ScriptLink language="javascript" name="<% $SPUrl:~SiteCollection/${Config.SP_DEST_DIR}/ ${arguments[0]}%>" OnDemand="true" runat="server" Localizable="false"/>-->`;
+      return `<!--SPM:<SharePoint:ScriptLink language="javascript" 
+       name="<% $SPUrl:~SiteCollection/${Config.SP_DEST_DIR}/ ${arguments[0]}%>"
+       OnDemand="true" runat="server" Localizable="false"/>-->`;
     }
 
     if (path.indexOf('.css') > 0 && Config.BUILD_TYPE === 'prod') {
-      return `<!--SPM:<SharePoint:CssRegistration name= "<% $SPUrl:~SiteCollection/${Config.SP_DEST_DIR}/${arguments[0]}%>" runat= "server" />-->`
+      return `<!--SPM:<SharePoint:CssRegistration
+       name="<% $SPUrl:~SiteCollection/${Config.SP_DEST_DIR}/${arguments[0]}%>"
+       runat= "server" />-->`;
     }
 
     return slash(plugins.inject.transform.apply(plugins.inject.transform, arguments));

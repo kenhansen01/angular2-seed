@@ -3,8 +3,6 @@ import { argv } from 'yargs';
 
 import { SeedConfig } from './seed.config';
 
-const inquirer = require('inquirer');
-
 export class SharePointConfig extends SeedConfig {
 
   CUSTOM_CONFIG = require(join(process.cwd(), this.APP_SRC, 'tools', 'config', 'custom.config.json'));

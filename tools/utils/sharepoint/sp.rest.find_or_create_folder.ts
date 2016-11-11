@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Rx';
 
 import Config from '../../config';
 import { SharePointAuthenticatedRequest } from './sp.rest_authenticated';
-import { IHttpReqOptions, INtlmOptions } from './sp.rest_authenticated.interfaces'
+import { IHttpReqOptions, INtlmOptions } from './sp.rest_authenticated.interfaces';
 
 const request = new SharePointAuthenticatedRequest();
 
@@ -12,15 +12,15 @@ export class FindOrCreateFolders {
   REQ_OPTIONS: IHttpReqOptions = {
     method: 'GET',
     json: true,
-    headers: { accept: "application/json;odata=verbose" }
-  }
+    headers: { accept: 'application/json;odata=verbose' }
+  };
 
   NTLM_OPTIONS: INtlmOptions = {
     hostname: parse(Config.SP_ROOT).hostname,
     username: Config.USER_NAME,
     password: Config.USER_PASSWORD,
     domain: Config.USER_DOMAIN,
-  }
+  };
 
   /**
    * Looks for folder with the given path, creates if it does not exist
@@ -37,7 +37,7 @@ export class FindOrCreateFolders {
       }
       console.log(`Folder exists, noting to see here...`);
       return Observable.empty();
-    })
+    });
   }
 
   /**
@@ -58,10 +58,10 @@ export class FindOrCreateFolders {
     this.REQ_OPTIONS.method = 'POST';
     this.REQ_OPTIONS.json = true;
     this.REQ_OPTIONS.body = {
-      "__metadata": {
-        "type": "SP.Folder"
+      '__metadata': {
+        'type': 'SP.Folder'
       },
-      "ServerRelativeUrl": folder
+      'ServerRelativeUrl': folder
     };
     this.REQ_OPTIONS.headers = {
         'accept': 'application/json;odata=verbose',

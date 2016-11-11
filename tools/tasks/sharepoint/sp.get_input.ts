@@ -94,4 +94,4 @@ export = (done: any) => {
       });
   }
   return getUserInfo(done);
-}
+};

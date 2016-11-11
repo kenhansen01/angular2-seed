@@ -47,11 +47,8 @@ export class SharePointAuthenticatedRequest {
       if (rqopts.method !== 'GET') {
         return digestHeader.concat(authReq);
       }
-      else {
-        return authReq;
-      }
+      return authReq;
     });
-      
     return deferReq;
   }
 
@@ -65,15 +62,15 @@ export class SharePointAuthenticatedRequest {
     return Rx.Observable.create((subscriber: Rx.Subscriber<any>) => {
       ntlmrequest({
         url: rqurl,
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Authorization": ntlm.challengeHeader(ntlmOpts.hostname, ntlmOpts.domain)
+          'Authorization': ntlm.challengeHeader(ntlmOpts.hostname, ntlmOpts.domain)
         }
       }, (err: any, res: any, body: any) => {
         subscriber.next({ error: err, response: res, body: body });
         subscriber.complete();
-        })
-    })
+      });
+    });
   }
 
   /**
@@ -86,7 +83,12 @@ export class SharePointAuthenticatedRequest {
 
       // Create Type3 Auth Headers to send with Request
       this.REQ_OPTIONS.headers = this.REQ_OPTIONS.headers || {};
-      this.REQ_OPTIONS.headers['Authorization'] = ntlm.responseHeader(challengeResponse, this.REQ_OPTIONS.url, this.NTLM_OPTIONS.domain, this.NTLM_OPTIONS.username, this.NTLM_OPTIONS.password);
+      this.REQ_OPTIONS.headers['Authorization'] = ntlm.responseHeader(
+        challengeResponse,
+        this.REQ_OPTIONS.url,
+        this.NTLM_OPTIONS.domain,
+        this.NTLM_OPTIONS.username,
+        this.NTLM_OPTIONS.password);
 
       ntlmrequest(this.REQ_OPTIONS, (err: any, res: any, body: any) => {
         //if (err) { subscriber.error({ error: err }); }
@@ -109,13 +111,18 @@ export class SharePointAuthenticatedRequest {
         method: 'POST',
         json: true,
         headers: {
-          "Authorization": ntlm.responseHeader(challengeResponse, `${Config.SP_ROOT}/_api/contextinfo`, this.NTLM_OPTIONS.domain, this.NTLM_OPTIONS.username, this.NTLM_OPTIONS.password),
-          "accept": "application/json;odata=verbose"
+          'Authorization': ntlm.responseHeader(
+            challengeResponse,
+            `${Config.SP_ROOT}/_api/contextinfo`,
+            this.NTLM_OPTIONS.domain,
+            this.NTLM_OPTIONS.username,
+            this.NTLM_OPTIONS.password),
+          'accept': 'application/json;odata=verbose'
         }
       }, (err: any, res: any, body: any) => {
         subscriber.next({ error: err, challengeResponse: challengeResponse, digestVal: body.d.GetContextWebInformation.FormDigestValue });
         subscriber.complete();
-        })
-    })
+      });
+    });
   }
 }

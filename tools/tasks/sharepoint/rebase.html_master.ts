@@ -1,17 +1,17 @@
 ﻿import { parse } from 'url';
 import * as gulp from 'gulp';
 import * as util from 'gulp-util';
-import { writeFileSync } from 'fs';
+// import { writeFileSync } from 'fs';
 
 import Config from '../../config';
 import { SharePointAuthenticatedRequest, IHttpReqOptions, INtlmOptions, StringSplicer } from '../../utils';
 
 const request = new SharePointAuthenticatedRequest();
-const DOMParser = require('xmldom').DOMParser;
-const XMLSerializer = require('xmldom').XMLSerializer;
+//const DOMParser = require('xmldom').DOMParser;
+//const XMLSerializer = require('xmldom').XMLSerializer;
 
-const parser = new DOMParser();
-const serializer = new XMLSerializer();
+//const parser = new DOMParser();
+//const serializer = new XMLSerializer();
 
 let reqOptions: IHttpReqOptions = {
   url: `${Config.SP_ROOT}/_api/web/GetFileByServerRelativeUrl('${Config.SP_STARTER_MASTER}')/$value`,
@@ -23,7 +23,7 @@ let ntlmOptions: INtlmOptions = {
   username: Config.USER_NAME,
   password: Config.USER_PASSWORD,
   domain: Config.USER_DOMAIN,
-}
+};
 
 /**
  * Gets original html file for master from SharePoint. Useful after SP updates to make sure masterpages are in line with any changes.
@@ -80,7 +80,7 @@ export = (done: any) => {
       string_src(Config.SP_FILE_NAME, res)
         .pipe(gulp.dest(Config.APP_SRC));
     })
-    .subscribe(res => done())
+    .subscribe(res => done());
 };
 
 function string_src(filename: string, srcString: string): any {
@@ -89,12 +89,12 @@ function string_src(filename: string, srcString: string): any {
 
   src._read = function () {
     this.push(new util.File({
-      cwd: "",
-      base: "",
+      cwd: '',
+      base: '',
       path: filename,
       contents: new Buffer(srcString)
     }));
     this.push(null);
-  }
+  };
   return src;
 }
