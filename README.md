@@ -1,3 +1,18 @@
+# SharePoint Specific Info
+
+After copying this repo run:
+```bash
+npm install && npm run lint && tsc
+```
+Once that finishes:
+```bash
+npm run reset.html.master
+```
+You will see several command line prompts, enter the web address of the SharePoint site that you want to update the masterpage on, your login name, password and domain. 
+It will perform a NTLM request to get the startermaster.html from the site, it will inject a tag for the angular app and places for the Angular Seed to inject the shims, libs and configuration to keep your master page up to date.
+
+It will then upload it to a custom folder in the masterpage catalog. 
+
 # Introduction
 
 [![Angular Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://angular.io/styleguide)
