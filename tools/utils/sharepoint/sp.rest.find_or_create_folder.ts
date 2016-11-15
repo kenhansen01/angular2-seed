@@ -35,14 +35,15 @@ export class FindOrCreateFolders {
         console.log(`Can't find this folder, I'm going to make it!`);
         return this.createFolder(folder);
       }
-      console.log(`Folder exists, noting to see here...`);
-      return Observable.empty();
+      console.log(`Folder exists, nothing to see here...`);
+      return Observable.from('1');
     });
   }
 
   /**
    * Finds folders returns folder or error
    * @param {string} folder - The Site Collection Relative path to the folder
+   * @return {Observable} - Observable of the folder
    */
   private findFolder(folder: string) {
     this.REQ_OPTIONS.url = `${Config.SP_ROOT}/_api/web/getfolderbyserverrelativeurl('${folder}')`;

@@ -1,4 +1,5 @@
 ﻿import { parse } from 'url';
+import * as Stream from 'stream';
 import * as gulp from 'gulp';
 import * as util from 'gulp-util';
 // import { writeFileSync } from 'fs';
@@ -31,10 +32,6 @@ let ntlmOptions: INtlmOptions = {
 export = (done: any) => {
   return request.sendRequest(reqOptions, ntlmOptions)
     .map(res => {
-      //if (err) {
-      //  console.log(err);
-      //  return done();
-      //}
 
       console.log(res.headers);
       console.log(res.body);
@@ -77,24 +74,26 @@ export = (done: any) => {
     })
     .do(res => {
       console.log(res);
-      string_src(Config.SP_FILE_NAME, res)
+
+      fileStream(res)
         .pipe(gulp.dest(Config.APP_SRC));
     })
     .subscribe(res => done());
 };
 
-function string_src(filename: string, srcString: string): any {
+function fileStream(contentsString: string): any {
 
-  let src = require('stream').Readable({ objectMode: true });
+  let file = new util.File({
+    cwd: '',
+    base: '',
+    path: Config.SP_FILE_NAME,
+    contents: new Buffer(contentsString)
+  });
 
-  src._read = function () {
-    this.push(new util.File({
-      cwd: '',
-      base: '',
-      path: filename,
-      contents: new Buffer(srcString)
-    }));
-    this.push(null);
-  };
+  let src = new Stream.Readable({ objectMode: true });
+
+  src.push(file);
+  src.push(null);
+
   return src;
 }

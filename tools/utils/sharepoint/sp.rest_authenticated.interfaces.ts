@@ -3,7 +3,7 @@
   parameters?: any;
   json?: boolean;
   files?: any;
-  body?: string | Object;
+  body?: string | Buffer | Object;
   headers?: any;
   cookies?: any;
   auth?: string;
