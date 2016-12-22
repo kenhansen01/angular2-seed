@@ -3,7 +3,7 @@ import * as util from 'gulp-util';
 import * as runSequence from 'run-sequence';
 
 import Config from './tools/config';
-import { loadTasks } from './tools/utils';
+import { loadTasks, loadCompositeTasks } from './tools/utils';
 
 
 loadTasks(Config.SEED_TASKS_DIR);
@@ -150,6 +150,10 @@ gulp.task('test', (done: any) =>
 gulp.task('clean.i18n', (done: any) =>
   runSequence('clear.files',
               done));
+=======
+loadCompositeTasks(Config.SEED_COMPOSITE_TASKS, Config.PROJECT_COMPOSITE_TASKS);
+
+>>>>>>> origin/master
 
 // --------------
 // Clean dev/coverage that will only run once
